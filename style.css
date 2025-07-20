@@ -4,7 +4,13 @@ html {
     letter-spacing: 0.8px;
     min-height: 100vh;
     color: #d8e9ef;
-    background-image: linear-gradient(-20deg, #025159 0%, #733b36 100%);
+    
+}
+
+body {
+    background: linear-gradient(to bottom, #daf1de, #8eb69b, #235347,#163832, #0b2b26, #051f20);
+    background-repeat: no-repeat;
+    background-size: cover;
     background-size: cover;
 }
 
@@ -15,6 +21,13 @@ h1 {
 
 p {
     margin: 0;
+}
+
+.app-message,
+.app-container > h1,
+.app-circle {
+    position: relative;
+    top: 30%;
 }
 
 .app-message {
@@ -32,7 +45,6 @@ p {
 }
 
 .app-circle{
-    position: relative;
     margin: 0 auto;
     width: 200px;
     height: 200px;
@@ -42,41 +54,23 @@ p {
     pointer-events: none;
 }
 
-.semi-circle {
-    position: absolute;
-    width: 100px;
-    height: 200px;
-    box-sizing: border-box;
-    border: solid 6px;
-}
 
-.left-side {
+
+.border {
     top: 0;
     left: 0;
-    transform-origin: right center;
-    transform: rotate(0deg);
-    border-top-left-radius: 100px;
-    border-bottom-left-radius: 100px;
-    border-right: none;
+    border-radius: 100%;
     z-index: 1;
 }
 
-.right-side {
-    top: 0;
-    left: 100px;
-    transform-origin: left center;
-    transform: rotate(0deg);
-    border-top-right-radius: 100px;
-    border-bottom-right-radius: 100px;
-    border-left: none;
-}
+
 
 .circle {
-    border-color: #bf5239;
-}
-
-.circle-mask {
-    border-color: #e85a71;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    box-sizing: border-box;
+    border: solid 10px #8eb69b80;
 }
 
 .app-counter-box {
@@ -103,3 +97,5 @@ button {
 button:hover {
     color: #90c0d1;
 }
+
+

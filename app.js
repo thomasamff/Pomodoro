@@ -1,41 +1,61 @@
 const bells = new Audio('./sounds/bell.wav');
 const startBtn = document.querySelector('.btn-start');
-const session = document.querySelector('.minutes');
+const resetBtn = document.querySelector('.btn-reset');
+let minutes = document.querySelector('.minutes');
+let seconds = document.querySelector('.seconds');
+
+const ogMinutes = minutes.textContent;
+const ogSeconds = seconds.textContent;
+
 let myInterval;
 let state = true;
+let sessionAmount;
 
-const appTimer = () => {
-    const sessionAmount = Number.parseInt(session.textContent);
+const appTime = () => {
+    minutes = document.querySelector('.minutes');
+    seconds = document.querySelector('.seconds');
 
     if (state) {
+        sessionAmount = Number.parseInt(minutes.textContent) * 60 + Number.parseInt(seconds.textContent);
         state = false;
-        let totalSeconds = sessionAmount * 60;
-
-        const updateSeconds = () => {
-            const minuteDiv = document.querySelector('.minutes');
-            const secondDiv = document.querySelector('.seconds');
-
-            totalSeconds--;
-
-            let minutesLeft = Math.floor(totalSeconds/60);
-            let secondsLeft = totalSeconds % 60;
-
-            if (secondsLeft < 10) {
-                secondDiv.textContent = '0' + secondsLeft;
-            } else {
-                secondDiv.textContent = secondsLeft; 
-            }
-            minuteDiv.textContent = `${minutesLeft}`;
-
-            if (minutesLeft === 0 && secondsLeft === 0) {
-                bells.play();
-                clearInterval(myInterval);
-            }
-        }
+        startBtn.textContent = "Pause";
         myInterval = setInterval(updateSeconds, 1000);
     } else {
-        alert('Session has already started.');
-    }
-}
+        state = true;
+        startBtn.textContent = "Start";
+        clearInterval(myInterval);
+        myInterval = null;
 
-startBtn.addEventListener('click', appTimer);
+    }
+
+};
+
+const updateSeconds = () => {
+    sessionAmount--;
+
+    let minutesLeft = Math.floor(sessionAmount/60);
+    let secondsLeft = Math.floor(sessionAmount%60);
+
+    seconds.textContent = secondsLeft < 10 ? '0' + secondsLeft : secondsLeft;
+    minutes.textContent = `${minutesLeft}`;
+
+    if (minutesLeft === 0 && secondsLeft === 0) {
+        clearInterval(myInterval);
+    }
+};
+
+const resetTime = () => {
+    if (!state) {
+        state = true;
+        clearInterval(myInterval);
+        myInterval = null;
+        startBtn.textContent = "Start";
+    } 
+    minutes.textContent = ogMinutes;
+    seconds.textContent = ogSeconds;
+    
+};
+
+
+startBtn.addEventListener('click', appTime);
+resetBtn.addEventListener('click', resetTime);
